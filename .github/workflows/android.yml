@@ -19,6 +19,34 @@ jobs:
       - name: Extract project
         run: unzip -q DailyFlowAndroid_Source.zip -d .
 
+      - name: Align Java and Kotlin targets
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path("DailyFlowAndroid/app/build.gradle.kts")
+          s = p.read_text()
+
+          marker = "    buildFeatures { compose = true }"
+
+          replacement = """    compileOptions {
+                  sourceCompatibility = JavaVersion.VERSION_17
+                  targetCompatibility = JavaVersion.VERSION_17
+              }
+
+              kotlinOptions {
+                  jvmTarget = "17"
+              }
+
+              buildFeatures { compose = true }"""
+
+          if marker not in s:
+              raise SystemExit("Could not find buildFeatures marker")
+
+          p.write_text(s.replace(marker, replacement, 1))
+          print("Java and Kotlin targets aligned to Java 17.")
+          PY
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
