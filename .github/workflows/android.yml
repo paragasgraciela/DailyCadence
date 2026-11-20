@@ -1,11 +1,11 @@
 
-name: Build DailyFlow APK
+name: Build DailyCadence APK
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'DailyFlowAndroid_Source.zip'
+      - 'DailyCadence_2.0_Source.zip'
       - '.github/workflows/android.yml'
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Extract project
-        run: unzip -q DailyFlowAndroid_Source.zip -d .
+        run: unzip -q DailyCadence_2.0_Source.zip -d .
 
       - name: Align Java and Kotlin targets
         run: |
@@ -73,7 +73,7 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: DailyFlow-APK
+          name: DailyCadence-APK
           path: DailyFlowAndroid/app/build/outputs/apk/debug/app-debug.apk
           
           
