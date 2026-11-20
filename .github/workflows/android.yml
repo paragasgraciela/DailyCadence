@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'DailyCadence_2.0_Source.zip'
+      - 'DailyCadence_2.0_Source_Fixed.zip'
       - '.github/workflows/android.yml'
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Extract project
-        run: unzip -q DailyCadence_2.0_Source.zip -d .
+        run: unzip -q DailyCadence_2.0_Source_Fixed.zip -d .
 
       - name: Align Java and Kotlin targets
         run: |
